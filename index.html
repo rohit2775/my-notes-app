@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Notes App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      
+      color: #e0e0e0; 
+      padding: 20px;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+  background-image: url(https://images.unsplash.com/photo-1605647601778-865aeff15565?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBhZ2VzfGVufDB8fDB8fHww);
+  background-size: cover;     
+  background-position: center; 
+  background-repeat: no-repeat;
+     
+    }
+
+    h1 {
+      text-align: center;
+      
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px #e57f11; 
+    }
+
+    #noteInput {
+      width: 70%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #e57f11; 
+      border-radius: 8px;
+      background: transparent;
+      color: rgb(2, 2, 2);
+      font-size: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: box-shadow 0.3s;
+    }
+    #noteInput:focus {
+      box-shadow: 0 0 10px #e57f11;
+      outline: none;
+    }
+
+    #addBtn {
+      padding: 10px 25px;
+      background: #e57f11; 
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+    #addBtn:hover {
+      background: #e57f11; 
+      box-shadow: 0 0 12px #e57f11;
+    }
+
+    #notes {
+      margin-top: 30px;
+      width: 70%;
+    }
+
+    .note {
+      background: black;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      position: relative;
+      border-left: 4px solid #e57f11; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .note:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px #e57f11;
+    }
+
+    .deleteBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      transition: background 0.3s;
+    }
+    .deleteBtn:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 My Notes</h1>
+
+  <input type="text" id="noteInput" placeholder="Type your note here...">
+  <br>
+  <button id="addBtn">Add Note</button>
+
+  <div id="notes"></div>
+
+  <script>
+    const addBtn = document.getElementById('addBtn');
+    const noteInput = document.getElementById('noteInput');
+    const notesDiv = document.getElementById('notes');
+
+    
+    window.onload = function() {
+      if(localStorage.getItem('notes')) {
+        notesDiv.innerHTML = localStorage.getItem('notes');
+      }
+    };
+
+    addBtn.addEventListener('click', function() {
+      if(noteInput.value.trim() !== '') {
+        const note = document.createElement('div');
+        note.className = 'note';
+        note.innerHTML = `
+          ${noteInput.value}
+          <button class="deleteBtn">X</button>
+        `;
+        notesDiv.appendChild(note);
+        noteInput.value = '';
+        saveNotes();
+      }
+    });
+
+    // Delete note
+    notesDiv.addEventListener('click', function(e) {
+      if(e.target.classList.contains('deleteBtn')) {
+        e.target.parentElement.remove();
+        saveNotes();
+      }
+    });
+
+    // Save notes to localStorage
+    function saveNotes() {
+      localStorage.setItem('notes', notesDiv.innerHTML);
+    }
+  </script>
+
+</body>
+</html>
