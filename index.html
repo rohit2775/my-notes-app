@@ -140,7 +140,7 @@
       }
     });
 
-    // Delete note
+    // Delete notes 
     notesDiv.addEventListener('click', function(e) {
       if(e.target.classList.contains('deleteBtn')) {
         e.target.parentElement.remove();
@@ -148,7 +148,7 @@
       }
     });
 
-    // Save notes to localStorage
+    // Save notes to localStorage only for show 
     function saveNotes() {
       localStorage.setItem('notes', notesDiv.innerHTML);
     }
