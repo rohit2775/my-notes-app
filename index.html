@@ -121,11 +121,11 @@
     const notesDiv = document.getElementById('notes');
 
     
-    window.onload = function() {
-      if(localStorage.getItem('notes')) {
-        notesDiv.innerHTML = localStorage.getItem('notes');
-      }
-    };
+    // window.onload = function() {
+    //   if(localStorage.getItem('notes')) {
+    //     notesDiv.innerHTML = localStorage.getItem('notes');
+    //   }
+    // };
 
     addBtn.addEventListener('click', function() {
       if(noteInput.value.trim() !== '') {
